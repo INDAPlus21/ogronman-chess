@@ -1,5 +1,6 @@
 use crate::lib::Game;
 use crate::lib::ColorTurn;
+use crate::lib::GameState;
 use std::io;
 use std::io::BufRead;
 mod lib;
@@ -18,32 +19,41 @@ fn main() {
     let input = io::stdin();
     
     loop{
-        if game.get_game_turn() == ColorTurn::White{
+        if game.get_game_state() != GameState::GameOver {
+            if game.get_game_turn() == ColorTurn::White{ 
 
-            let lines = input.lock().lines().next().unwrap().unwrap();
 
-            let mut pos:Vec<char> = lines.chars().collect();
+                //Gör så att att om man bara skriver en posistion visar den alla moves som den pjäsen kan göra
+                //Good idea
+                let lines = input.lock().lines().next().unwrap().unwrap();
     
-            if pos.len() == 5{
-                let mut _from:String = String::from("");
-                _from.push(pos[0]);
-                _from.push(pos[1]);
-                let mut _to:String = String::from("");
-                _to.push(pos[3]);
-                _to.push(pos[4]);
+                let mut pos:Vec<char> = lines.chars().collect();
         
-                game.make_move(_from, _to);
+                if pos.len() == 5{
+                    let mut _from:String = String::from("");
+                    _from.push(pos[0]);
+                    _from.push(pos[1]);
+                    let mut _to:String = String::from("");
+                    _to.push(pos[3]);
+                    _to.push(pos[4]);
+            
+                    game.make_move(_from, _to);
+                    game.print_board();
+                    println!("Current turn is:");
+                    println!("{:#?}", game.get_game_turn());
+                }
+            } else {
+                game.make_ai_move();
                 game.print_board();
                 println!("Current turn is:");
                 println!("{:#?}", game.get_game_turn());
             }
         } else {
-            game.make_ai_move();
-            game.print_board();
-            println!("Current turn is:");
-            println!("{:#?}", game.get_game_turn());
+            break;
         }
-
     }
+
+    println!("Grattis du har vunnit");
+    
 
 }
