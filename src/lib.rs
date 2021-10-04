@@ -386,7 +386,7 @@ impl Game {
      * Initialises the board and calls the load_fen_board function
      * As well as calls the get_edge function
      */
-    pub fn init_board(&mut self) -> (){
+    pub fn init_board(&mut self) -> () {
         for _i in 0..self.board.capacity(){
             self.board.push(Vec::new());
             
@@ -641,19 +641,19 @@ impl Game {
     /**
      * Promotes a pawn to a piecec of the players choice
      */
-    pub fn set_promotion(&mut self, _piece_pos: u8) -> () {
+    pub fn set_promotion(&mut self, _piece_pos: u8, promotion_piece:String) -> () {
         println!("Promote your pawn");
         println!("Print Q for queen");
         println!("Print K for king");
         println!("Print R for rook");
         println!("Print B for bishop");
 
-        let input = io::stdin();
+        //let input = io::stdin();
 
 
-        let mut lines = input.lock().lines().next().unwrap().unwrap();
+        //let mut lines = input.lock().lines().next().unwrap().unwrap();
 
-        let mut promotion_piece = lines.to_ascii_lowercase().chars().nth(0).unwrap().to_string();
+        //let mut promotion_piece = lines.to_ascii_lowercase().chars().nth(0).unwrap().to_string();
         println!("Promotion piece = {}", promotion_piece);
 
         promotion_piece = promotion_piece.chars().map(|promotion_piece| match promotion_piece {      // t.ex. a blir 0
