@@ -518,6 +518,18 @@ impl Game {
         //return self;
     }
 
+    pub fn get_board_vec(&mut self) -> Vec<Vec<u8>> {
+        let mut return_vector: Vec<Vec<u8>> = Vec:with_capacity(64);
+        for _i in 0..64 {
+            return_vector.push(vec![0,2]);
+        }
+        for _i in 0..64 {
+            return_vector[_i][0] = self.board[_i][0];
+            return_vector[_i][1] = self.board[_i][1];
+        }
+        return return_vector;
+    }
+
     fn should_enpassante(&mut self, _from:u8, _to:u8) -> bool{
         if self.board[_from as usize][1] == _WHITE {
             if _from+8*2 == _to {
